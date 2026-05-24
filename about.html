@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us — Khattak Students Association (KSA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { 
+    --navy: #0A2540; 
+    --navy-light: #1E3A5F; 
+    --gold: #D4AF37; 
+    --gold-light: #F4E8C1; 
+    --emerald: #0F5132;
+    --gray-bg: #F8F9FA; 
+    --text: #2D3748; 
+    --text-muted: #634357;
+    --white: #ffffff; 
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--gray-bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAVIGATION BAR */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: var(--navy); position: sticky; top: 0; z-index: 200; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+  .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-text { font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--white); font-weight: 700; letter-spacing: 1px; }
+  .logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,.85); font-weight: 700; font-size: .95rem; position: relative; transition: color .25s; padding: 6px 0; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--gold); transition: width .3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-cta { background: var(--emerald); color: var(--white) !important; padding: 10px 24px !important; border-radius: 6px; box-shadow: 0 4px 12px rgba(15,81,50,.3); transition: transform .2s !important; }
+  .nav-cta:hover { transform: translateY(-2px); background: #146c43; }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 3px; background: var(--white); border-radius: 2px; transition: all .3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* BREADCRUMB HERO */
+  .page-hero { background: linear-gradient(rgba(10,37,64,.85), rgba(10,37,64,.95)), url('university.jpg') center/cover no-repeat; padding: 90px 5%; text-align: center; position: relative; }
+  .page-hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--white); letter-spacing: 1px; }
+  .page-hero p { color: var(--gold); font-size: 1.1rem; margin-top: 10px; font-weight: 600; }
+  .breadcrumb { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+  .breadcrumb a { color: rgba(255,255,255,.7); text-decoration: none; font-size: .9rem; font-weight: 600; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: rgba(255,255,255,.4); font-size: .9rem; }
+
+  /* OUR STORY SECTION */
+  .story { padding: 100px 5%; background: var(--white); }
+  .story-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .story-text .section-tag { color: var(--gold); font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .story-text h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--navy); margin-bottom: 15px; }
+  .accent-line { width: 70px; height: 4px; background: var(--gold); border-radius: 2px; margin-bottom: 28px; }
+  .story-text p { font-size: 1.05rem; color: #4A5568; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+  .story-img { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.1); position: relative; }
+  .story-img img { width: 100%; height: 480px; object-fit: cover; display: block; transition: transform .5s; }
+  .story-img:hover img { transform: scale(1.03); }
+
+  /* VALUES SECTION */
+  .values { padding: 100px 5%; background: var(--gray-bg); }
+  .center-heading { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+  .center-heading h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.6rem); color: var(--navy); margin-bottom: 12px; }
+  .center-heading p { color: #718096; font-size: 1.05rem; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+  .value-card { background: var(--white); border-radius: 8px; padding: 40px 30px; box-shadow: 0 10px 30px rgba(0,0,0,.04); border-top: 4px solid var(--navy); transition: transform .3s, box-shadow .3s; }
+  .value-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(10,37,64,.1); border-top-color: var(--gold); }
+  .value-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+  .value-card h3 { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 12px; }
+  .value-card p { font-size: .98rem; color: #4A5568; line-height: 1.7; }
+
+  /* STUDY CIRCLES SECTION */
+  .study-circles { padding: 100px 5%; background: var(--white); border-top: 1px solid rgba(0,0,0,0.05); }
+  .study-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .study-text .section-tag { color: var(--gold); font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .study-text h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--navy); margin-bottom: 15px; }
+  .study-text p { font-size: 1.05rem; color: #4A5568; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+  .study-img { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.1); position: relative; }
+  .study-img img { width: 100%; height: 420px; object-fit: cover; display: block; transition: transform .5s; }
+  .study-img:hover img { transform: scale(1.03); }
+
+  /* PROFESSIONAL BLOOD BANKING SECTION */
+  .blood-banking { padding: 100px 5%; background: var(--gray-bg); border-top: 1px solid rgba(0,0,0,0.05); }
+  .blood-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .blood-text .section-tag { color: #C53030; font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .blood-text h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--navy); margin-bottom: 15px; }
+  .blood-text p { font-size: 1.05rem; color: #4A5568; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+  .blood-img { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.1); position: relative; }
+  .blood-img img { width: 100%; height: 420px; object-fit: cover; display: block; transition: transform .5s; }
+  .blood-img:hover img { transform: scale(1.03); }
+
+  /* RAMADAN IFTAR PARTY SECTION */
+  .iftar-party { padding: 100px 5%; background: var(--white); border-top: 1px solid rgba(0,0,0,0.05); }
+  .iftar-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .iftar-text .section-tag { color: var(--emerald); font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .iftar-text h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--navy); margin-bottom: 15px; }
+  .iftar-text p { font-size: 1.05rem; color: #4A5568; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+  .iftar-img { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.1); position: relative; }
+  .iftar-img img { width: 100%; height: 420px; object-fit: cover; display: block; transition: transform .5s; }
+  .iftar-img:hover img { transform: scale(1.03); }
+
+  /* NEW: UNIVERSITY EXPOS & CULTURAL STALLS SECTION */
+  .expo-stalls { padding: 100px 5%; background: var(--gray-bg); border-top: 1px solid rgba(0,0,0,0.05); }
+  .expo-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 70px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .expo-text .section-tag { color: var(--gold); font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .expo-text h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.8rem); color: var(--navy); margin-bottom: 15px; }
+  .expo-text p { font-size: 1.05rem; color: #4A5568; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+  .expo-img { border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,.1); position: relative; }
+  .expo-img img { width: 100%; height: 420px; object-fit: cover; display: block; transition: transform .5s; }
+  .expo-img:hover img { transform: scale(1.03); }
+
+  /* EXECUTIVE COMMITTEE SECTION */
+  .team { padding: 100px 5%; background: var(--white); border-top: 1px solid rgba(0,0,0,0.05); }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 35px; max-width: 1100px; margin: 0 auto; justify-content: center; }
+  .team-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,.05); text-align: center; transition: transform .3s, box-shadow .3s; border: 1px solid rgba(0,0,0,.05); }
+  .team-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(10,37,64,.12); }
+  .member-img-box { width: 100%; height: 320px; overflow: hidden; background: #e2e8f0; position: relative; }
+  .member-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  .member-info { padding: 25px 20px; }
+  .team-card h3 { font-family: 'Cinzel', serif; font-size: 1.25rem; color: var(--navy); margin-bottom: 6px; font-weight: 700; }
+  .team-card .role { font-size: .9rem; color: var(--gold); font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
+  .team-card .dept { font-size: .88rem; color: #718096; margin-bottom: 15px; font-weight: 600; }
+  .member-divider { width: 40px; height: 2px; background: rgba(0,0,0,.1); margin: 0 auto 15px; }
+  .team-card p { font-size: .92rem; color: #4A5568; line-height: 1.6; padding: 0 10px; }
+
+  /* SCROLL REVEAL ANIMATION */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s cubic-bezier(0.215, 0.610, 0.355, 1), transform .7s cubic-bezier(0.215, 0.610, 0.355, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* FOOTER */
+  footer { background: var(--navy); color: rgba(255,255,255,.75); padding: 70px 5% 30px; border-top: 5px solid var(--gold); }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto 50px; }
+  .footer-brand .logo-text { font-size: 1.4rem; margin-bottom: 15px; display: inline-block; }
+  .footer-brand p { font-size: .92rem; line-height: 1.75; max-width: 320px; color: rgba(255,255,255,.65); }
+  .footer-col h4 { color: var(--white); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 22px; letter-spacing: 1px; position: relative; padding-bottom: 8px; }
+  .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 35px; height: 2px; background: var(--gold); }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a { color: rgba(255,255,255,.65); text-decoration: none; font-size: .92rem; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 25px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+  .footer-bottom p { font-size: .88rem; color: rgba(255,255,255,.5); }
+
+  /* RESPONSIVE DESIGN BREAKPOINTS */
+  @media (max-width: 960px) { 
+    .story-grid, .study-grid, .blood-grid, .iftar-grid, .expo-grid { grid-template-columns: 1fr; gap: 40px; } 
+    .story-img, .study-img, .blood-img, .iftar-img, .expo-img { order: -1; } 
+    .story-img img, .study-img img, .blood-img img, .iftar-img img, .expo-img img { height: 360px; } 
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } 
+  }
+  @media (max-width: 680px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--navy); padding: 30px 5%; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,.15); border-top: 1px solid rgba(255,255,255,.05); }
+    .nav-links.open { display: flex; } .hamburger { display: flex; }
+    .footer-top { grid-template-columns: 1fr; gap: 35px; } .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="dashboard.html" class="logo-container">
+    <span class="logo-text">KSA — <span>UOP</span></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html">Home</a></li>
+    <li><a href="about.html" class="active">About Us</a></li>
+    <li><a href="donation.html">Donations</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Urgent Help</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <h1 class="reveal">About Our Association</h1>
+  <p class="reveal">Unity, Welfare, and Academic Excellence since formation</p>
+  <div class="breadcrumb reveal">
+    <a href="dashboard.html">Home</a>
+    <span>/</span>
+    <span style="color: var(--gold);">About Us</span>
+  </div>
+</div>
+
+<section class="story">
+  <div class="story-grid">
+    <div class="story-text reveal">
+      <span class="section-tag">Our Roots & Journey</span>
+      <h2>Our Story & Vision</h2>
+      <div class="accent-line"></div>
+      <p>The Khattak Students Association (KSA) at the University of Peshawar was established by dedicated student groups originating from Karak. Driven by the core values of mutual help, community empowerment, and academic collaboration, KSA serves as a vital support system for students navigating university and hostel life far from home.</p>
+      <p>Our vision is to cultivate an inclusive, highly motivating environment where every student from our region can thrive academically, grow socially, and access timely financial or medical aid when facing emergencies on campus.</p>
+      <p>From organizing targeted academic study circles to managing robust round-the-clock emergency blood donation drives across local hospitals, KSA is deeply committed to building bridges of welfare, professional mentorship, and lifelong unity.</p>
+    </div>
+    <div class="story-img reveal">
+      <img src="puni.webp" alt="University of Peshawar Campus Building">
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <div class="center-heading reveal">
+    <h2>Our Core Values</h2>
+    <p>The foundational principles that guide every initiative, drive, and support program we organize.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card reveal">
+      <span class="value-icon">🤝</span>
+      <h3>Student Welfare</h3>
+      <p>We prioritize providing structural support, hostel accommodation guidance, and navigating administrative processes for new and ongoing students.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-icon">🩸</span>
+      <h3>Emergency Response</h3>
+      <p>Our rapid blood donation network coordinates directly with regional blood banks and hospitals to answer urgent medical requests immediately.</p>
+    </div>
+    <div class="value-card reveal">
+      <span class="value-icon">📚</span>
+      <h3>Academic Growth</h3>
+      <p>Through peer-led study circles, exam preparation sessions, and resource sharing, we make sure no student falls behind in their curriculum.</p>
+    </div>
+  </div>
+</section>
+
+<section class="study-circles">
+  <div class="study-grid">
+    <div class="study-text reveal">
+      <span class="section-tag">Academic Excellence</span>
+      <h2>Study Circles & Peer Mentorship</h2>
+      <div class="accent-line"></div>
+      <p>KSA believes that academic solidarity is the key to building a progressive future. Our signature Study Circles project brings together senior students and freshly enrolled juniors across multiple faculties to share resources, dissect complex course outlines, and conduct dedicated exam preparation panels right within campus areas and hostel spaces.</p>
+      <p>These student-led circles create a pressure-free environment where individuals can address modern curriculum challenges, clarify core academic concepts, and trade vital project insights. By maintaining structured lecture repositories, notes, and past paper logs, we actively look out for every single community member, ensuring they hit their true GPA potential and transition smoothly into higher professional tracks.</p>
+    </div>
+    <div class="study-img reveal">
+      <img src="studtc.jpeg" alt="KSA Academic Study Circle Placeholder">
+    </div>
+  </div>
+</section>
+
+<section class="blood-banking">
+  <div class="blood-grid">
+    <div class="blood-text reveal">
+      <span class="section-tag">Life-Saving Network</span>
+      <h2>University Blood Camps & Emergency Operations</h2>
+      <div class="accent-line" style="background: #C53030;"></div>
+      <p>Under the supervision of KSA, professional Blood Donation Camps are organized regularly on the University of Peshawar campus. The core purpose of this noble campaign is to encourage a spirit of voluntary service among university students, where hundreds step forward to donate blood to ensure we are equipped to handle sudden medical emergencies.</p>
+      <p>A complete professional medical environment is established within these camps, featuring comfortable donor seating under the specialized care of qualified medical staff. Standardized donation operations utilize high-quality blood bags, premium sterile IV drips, and reliable screening kit apparatuses. The safely collected blood is systematically recorded and stored, allowing it to be dispatched immediately to major regional hospitals in Peshawar (such as KTH and HMC) to aid patients in urgent need.</p>
+    </div>
+    <div class="blood-img reveal">
+      <img src="https://images.unsplash.com/photo-1615461066841-6116e61058f4?auto=format&fit=crop&q=80&w=600&h=450" alt="KSA Professional Blood Donation Camp Setup at University">
+    </div>
+  </div>
+</section>
+
+<section class="iftar-party">
+  <div class="iftar-grid">
+    <div class="iftar-text reveal">
+      <span class="section-tag">Ramadan Blessings</span>
+      <h2>Annual Grand Iftar Party</h2>
+      <div class="accent-line" style="background: var(--emerald);"></div>
+      <p>During the holy month of Ramadan, the Khattak Students Association (KSA) organizes its highly anticipated Annual Grand Iftar Party. This special gathering brings together campus hostel residents and students traveling from far-off areas around a single, unified dining arrangement, ensuring that no one feels the absence of home during this blessed time.</p>
+      <p>The objective of this spiritual evening extends beyond breaking the fast together; it serves to strengthen mutual connections, brotherhood, and lifelong friendships among students. The event is also regularly attended by university professors and senior alumni, who offer valuable academic guidance and encouragement to juniors, making the KSA communal table an inspiring example of unity and service.</p>
+    </div>
+    <div class="iftar-img reveal">
+      <img src="ift.jpeg" alt="KSA Annual Ramadan Iftar Gathering Placeholder">
+    </div>
+  </div>
+</section>
+
+<section class="expo-stalls">
+  <div class="expo-grid">
+    <div class="expo-text reveal">
+      <span class="section-tag">Cultural Representation</span>
+      <h2>Karak Culture & Heritage Exhibition (Expos & Stalls)</h2>
+      <div class="accent-line"></div>
+      <p>Whenever a major multi-cultural festival, dynamic student convention, or comprehensive University Expo is organized at the University of Peshawar, KSA sets up a beautiful, attractive Cultural Stall representing the vibrant lifestyle and heritage of Karak. The primary purpose of this activity is to introduce fellow students from other districts, alongside faculty members, to the unique traditions and authentic specialties of our region.</p>
+      <p>These curated stalls prominently display the most famous organic products of Karak, including pure wild honey harvested from Beri and Palosa trees, alongside premium, freshly roasted Karak peanuts. Adorned with traditional attire and driven by exceptional hospitality, KSA stalls consistently become a central attraction of the expo, instilling a sense of cultural pride among our students while sharing our rich identity with the wider campus community.</p>
+    </div>
+    <div class="expo-img reveal">
+      <img src="stall.jpeg" alt="KSA Cultural Stall Exhibition representing Karak Products">
+    </div>
+  </div>
+</section>
+
+<section class="team">
+  <div class="center-heading reveal">
+    <h2>Executive Committee</h2>
+    <p>Meet the dedicated leadership team overseeing operational management, welfare distributions, and student advocacy circles.</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card reveal">
+      <div class="member-img-box">
+        <img src="kashif.jpeg" alt="Chairman Kashif Khattak">
+      </div>
+      <div class="member-info">
+        <h3>Kashif Khattak</h3>
+        <div class="role">Chairman</div>
+        <div class="dept">KSA Leadership Council</div>
+        <div class="member-divider"></div>
+        <p>Directs strategic vision, institutional partnerships, and long-term student welfare policies across university boards.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="member-img-box">
+        <img src="hassan.jpeg" alt="President Hassan Sadiq">
+      </div>
+      <div class="member-info">
+        <h3>Hassan Sadiq</h3>
+        <div class="role">President</div>
+        <div class="dept">Executive Operations</div>
+        <div class="member-divider"></div>
+        <p>Oversees daily functional initiatives, coordination panels, emergency blood networks, and campus event arrangements.</p>
+      </div>
+    </div>
+    <div class="team-card reveal">
+      <div class="member-img-box">
+        <img src="adnan.jpeg" alt="General Secretary Adnan Nasim">
+      </div>
+      <div class="member-info">
+        <h3>Adnan Nasim</h3>
+        <div class="role">General Secretary</div>
+        <div class="dept">Secretariat & Records</div>
+        <div class="member-divider"></div>
+        <p>Manages membership registries, institutional communications, study circle coordination, and official helpdesk logs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo-text">KSA — <span>UOP</span></span>
+      <p>Serving with Unity, Supporting with Pride. A student-led welfare organization dedicated to assisting the student community at the University of Peshawar.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="donation.html">Donations</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="contact.html">Blood Drives</a></li>
+        <li><a href="about.html">Study Circles</a></li>
+        <li><a href="contact.html">Hostel Guidance</a></li>
+        <li><a href="donation.html">Financial Aid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Desk</h4>
+      <ul>
+        <li><a href="tel:#">📞 Campus Helpline</a></li>
+        <li><a href="mailto:info@ksa-uop.org">✉️ info@ksa-uop.org</a></li>
+        <li><a href="contact.html">📍 Peshawar University, KP</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Khattak Students Association (KSA). All rights reserved.</p>
+    <p>Designed for Academic Welfare</p>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => { 
+    hamburger.classList.toggle('open'); 
+    navLinks.classList.toggle('open'); 
+  });
+
+  const observerOptions = { threshold: 0.12, rootMargin: "0px 0px -20px 0px" };
+  const observer = new IntersectionObserver((entries) => { 
+    entries.forEach(entry => { 
+      if (entry.isIntersecting) { 
+        entry.target.classList.add('visible'); 
+        observer.unobserve(entry.target); 
+      } 
+    }); 
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequently Asked Questions — Khattak Students Association (KSA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { 
+    --navy: #0A2540; 
+    --navy-light: #1E3A5F; 
+    --gold: #D4AF37; 
+    --gold-light: #F4E8C1; 
+    --emerald: #0F5132;
+    --crimson: #A30000;
+    --gray-bg: #F8F9FA; 
+    --text: #2D3748; 
+    --white: #ffffff; 
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--gray-bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAVIGATION BAR */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: var(--navy); position: sticky; top: 0; z-index: 200; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+  .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-text { font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--white); font-weight: 700; letter-spacing: 1px; }
+  .logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,.85); font-weight: 700; font-size: .95rem; position: relative; transition: color .25s; padding: 6px 0; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--gold); transition: width .3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-cta { background: var(--emerald); color: var(--white) !important; padding: 10px 24px !important; border-radius: 6px; box-shadow: 0 4px 12px rgba(15,81,50,.3); transition: transform .2s !important; }
+  .nav-cta:hover { transform: translateY(-2px); background: #146c43; }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 3px; background: var(--white); border-radius: 2px; transition: all .3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* BREADCRUMB HERO */
+  .page-hero { background: linear-gradient(rgba(10,37,64,.85), rgba(10,37,64,.95)), url('university.jpg') center/cover no-repeat; padding: 90px 5%; text-align: center; position: relative; }
+  .page-hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--white); letter-spacing: 1px; }
+  .page-hero p { color: var(--gold); font-size: 1.1rem; margin-top: 10px; font-weight: 600; }
+  .breadcrumb { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+  .breadcrumb a { color: rgba(255,255,255,.7); text-decoration: none; font-size: .9rem; font-weight: 600; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: rgba(255,255,255,.4); font-size: .9rem; }
+
+  /* FAQ WRAPPER GRID */
+  .faq-container { padding: 90px 5%; max-width: 960px; margin: 0 auto; }
+  .center-heading { text-align: center; max-width: 700px; margin: 0 auto 50px; }
+  .center-heading h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 5vw, 2.6rem); color: var(--navy); margin-bottom: 12px; }
+  .center-heading p { color: #718096; font-size: 1.05rem; }
+
+  /* ADVANCED SEARCH INTERFACE */
+  .faq-search { margin-bottom: 50px; position: relative; box-shadow: 0 8px 30px rgba(0,0,0,.04); border-radius: 8px; }
+  .faq-search input { width: 100%; padding: 18px 24px 18px 56px; border-radius: 8px; border: 1px solid rgba(0,0,0,.08); font-family: 'Nunito', sans-serif; font-size: 1rem; outline: none; transition: all .25s; background: var(--white); color: var(--text); }
+  .faq-search input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,.15); }
+  .faq-search .search-icon { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); font-size: 1.3rem; opacity: .5; }
+
+  /* CATEGORIES & INTERACTIVE ACCORDIONS */
+  .faq-category { margin-bottom: 55px; }
+  .faq-cat-title { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; font-family: 'Cinzel', serif; font-size: 1.35rem; color: var(--navy); border-bottom: 2px solid var(--gold-light); padding-bottom: 10px; font-weight: 700; }
+  .faq-cat-title span { font-size: 1.6rem; color: var(--gold); }
+
+  .faq-item { background: var(--white); border-radius: 8px; margin-bottom: 14px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,.02); border: 1px solid rgba(0,0,0,.03); transition: all .3s; }
+  .faq-item:hover { box-shadow: 0 8px 25px rgba(10,37,64,.06); border-color: rgba(10,37,64,.1); }
+  
+  .faq-q { width: 100%; background: none; border: none; text-align: left; padding: 22px 28px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--navy); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; transition: color .25s; }
+  .faq-q:hover { color: var(--gold); }
+  
+  .faq-q .icon { width: 30px; height: 30px; min-width: 30px; border-radius: 6px; background: var(--gray-bg); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; color: var(--navy); transition: all .3s; font-weight: 400; }
+  .faq-item.open .faq-q { color: var(--gold); background: rgba(10,37,64,.01); }
+  .faq-item.open .faq-q .icon { background: var(--navy); color: var(--white); transform: rotate(45deg); }
+  
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(0.4, 0, 0.2, 1), padding .35s; padding: 0 28px; background: var(--white); }
+  .faq-item.open .faq-a { max-height: 400px; padding: 4px 28px 24px; border-top: 1px solid rgba(0,0,0,.02); }
+  .faq-a p { font-size: .98rem; color: #4A5568; line-height: 1.8; text-align: justify; }
+
+  /* CALL TO ACTION COUNTERPART */
+  .contact-prompt { background: linear-gradient(135deg, var(--navy), var(--navy-light)); border-radius: 12px; padding: 50px 40px; text-align: center; margin: 60px 0 20px; box-shadow: 0 15px 35px rgba(10,37,64,.15); border-left: 5px solid var(--gold); }
+  .contact-prompt h3 { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--white); margin-bottom: 12px; }
+  .contact-prompt p { color: rgba(255,255,255,.8); margin-bottom: 28px; font-size: 1.05rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .btn { padding: 14px 36px; border-radius: 6px; font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 700; cursor: pointer; border: 2px solid transparent; transition: all .28s; text-decoration: none; display: inline-block; text-transform: uppercase; letter-spacing: 0.5px; }
+  .btn-white { background: var(--gold); color: var(--navy); border-color: var(--gold); }
+  .btn-white:hover { background: var(--white); border-color: var(--white); color: var(--navy); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,255,255,.2); }
+
+  /* SCROLL REVEAL ANIMATION */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s cubic-bezier(0.215, 0.610, 0.355, 1), transform .7s cubic-bezier(0.215, 0.610, 0.355, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* FOOTER */
+  footer { background: var(--navy); color: rgba(255,255,255,.75); padding: 70px 5% 30px; border-top: 5px solid var(--gold); }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto 50px; }
+  .footer-brand .logo-text { font-size: 1.4rem; margin-bottom: 15px; display: inline-block; }
+  .footer-brand p { font-size: .92rem; line-height: 1.75; max-width: 320px; color: rgba(255,255,255,.65); }
+  .footer-col h4 { color: var(--white); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 22px; letter-spacing: 1px; position: relative; padding-bottom: 8px; }
+  .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 35px; height: 2px; background: var(--gold); }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a { color: rgba(255,255,255,.65); text-decoration: none; font-size: .92rem; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 25px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+  .footer-bottom p { font-size: .88rem; color: rgba(255,255,255,.5); }
+
+  /* RESPONSIVE DESIGN BREAKPOINTS */
+  @media (max-width: 960px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
+  @media (max-width: 680px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--navy); padding: 30px 5%; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,.15); border-top: 1px solid rgba(255,255,255,.05); }
+    .nav-links.open { display: flex; } .hamburger { display: flex; }
+    .footer-top { grid-template-columns: 1fr; gap: 35px; } .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION BAR (Consistent Layout) -->
+<nav>
+  <a href="index.html" class="logo-container">
+    <span class="logo-text">KSA — <span>UOP</span></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="donation.html">Donations</a></li>
+    <li><a href="faq.html" class="active">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Urgent Help</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <h1 class="reveal">Information Hub</h1>
+  <p class="reveal">Clear solutions to your registration, welfare, and emergency inquiries</p>
+  <div class="breadcrumb reveal">
+    <a href="dashboard.html">Home</a><span>/</span><span style="color: var(--gold);">FAQ Desk</span>
+  </div>
+</div>
+
+<!-- FAQ CONTAINER -->
+<div class="faq-container">
+  <div class="center-heading reveal">
+    <h2>Frequently Asked Questions</h2>
+    <p>Find step-by-step guidance on how KSA functions and how to apply for various emergency relief programs.</p>
+  </div>
+
+  <!-- INTERACTIVE FILTER SEARCH -->
+  <div class="faq-search reveal">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="faqSearch" placeholder="Type keywords (e.g., blood, hostel, study circle)..." oninput="searchFAQ()">
+  </div>
+
+  <div id="faqContent">
+    <!-- CATEGORY 1: MEDICAL & BLOOD DRIVES -->
+    <div class="faq-category reveal">
+      <div class="faq-cat-title"><span>🩸</span> Blood Drives & Emergency Medical Aid</div>
+      
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">How can I request urgent blood donations for a medical emergency? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>You can request emergency blood immediately by clicking the "Get Urgent Help" button on our navigation menu, or by filling out the tracking form on the Contact Page. For critical, life-threatening delays, please call our 24/7 executive committee helpline directly. Our central network coordinates instantly with hundreds of active student donors across campus hostels to organize prompt transit to local teaching hospitals.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Who is eligible to receive emergency medical and transport support from KSA? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>While our core structural programs focus on supporting registered students from Karak studying at the University of Peshawar, our medical emergency blood network is entirely humanitarian and open to anyone on campus in severe distress. We prioritize university students, faculty members, boarding scholars, and their immediate relatives during sudden hospitalizations.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">How do I register myself as an active blood donor in the KSA database? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>Students can enroll by submitting their Name, Contact Number, Department, Hostel Room details, and verified Blood Group through our desk portal or via the general inquiry form on the Contact page. This critical database allows our secretariat desk to locate matches near the hospital when emergency replacements are requested.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORY 2: ACADEMICS & STUDY CIRCLES -->
+    <div class="faq-category reveal">
+      <div class="faq-cat-title"><span>📚</span> Academic Circles & Resource Distribution</div>
+      
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">How do I join the peer-led KSA study circles? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>KSA study circles are arranged by senior departmental scholars throughout each semester. Schedules, subject distributions, and hall locations are published on our announcements board. To secure a seat, contact General Secretary Adnan Nasim or state your current academic department and session in a message via our digital Helpdesk Form.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Does KSA provide course materials, textbooks, or past papers? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>Yes, we maintain a collaborative curriculum library repository. Senior graduates donate textbooks, lab manuals, notes, and compiled past semester papers. These resources are distributed to junior students at the beginning of each academic term, with priority given to candidates facing financial constraints.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Can I volunteer as a peer-mentor or instructor for my juniors? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>We highly encourage senior students with exceptional academic tracks to lead specific subject revision sessions. If you want to contribute as a peer mentor, get in touch with our management desk during membership drives to align your availability with current student requests.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATEGORY 3: HOSTELS & GENERAL WELFARE -->
+    <div class="faq-category reveal">
+      <div class="faq-cat-title"><span>🏢</span> Hostel Support & General Welfare Desk</div>
+      
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">How does KSA assist new students coming from Karak with hostel boarding? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>Securing accommodation at the University of Peshawar can be challenging for freshers. KSA offers direct support by guiding new students through the official hostel allotment process, providing temporary room sharing arrangements with seniors, and assisting with essential items like mattresses and study setups during their initial transit weeks.</p>
+        </div>
+      </div>
+      
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">What criteria determines eligibility for a student semester fee subsidy? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>Financial subsidies are allocated based on an objective assessment of need. Our welfare committee reviews formal requests submitted through the Donation page or Helpdesk. Applicants must provide evidence of current financial limitations, university transcripts, and hostel fee structures to verify eligibility for direct university payment coverage.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Are mess bill subsidies available for students in severe economic distress? <span class="icon">+</span></button>
+        <div class="faq-a">
+          <p>Yes. Depending on available funds, KSA coordinates partial or full hostel mess subsidies during exam periods or winter months. Students can request support by speaking directly with President Hassan Sadiq or via a confidential submission on our Help Request Form.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT REDIRECT BLOCK -->
+  <div class="contact-prompt reveal">
+    <h3>Still Have Questions or Need Custom Guidance?</h3>
+    <p>If your specific inquiry isn't covered in our documentation hub, please access our dedicated helpdesk platform to connect directly with an executive council representative.</p>
+    <a href="contact.html" class="btn btn-white">Open Helpdesk Ticket</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo-text">KSA — <span>UOP</span></span>
+      <p>Serving with Unity, Supporting with Pride. A student-led welfare organization dedicated to assisting the student community at the University of Peshawar.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="donation.html">Donations</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="contact.html">Blood Drives</a></li>
+        <li><a href="about.html">Study Circles</a></li>
+        <li><a href="contact.html">Hostel Guidance</a></li>
+        <li><a href="donation.html">Financial Aid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Desk</h4>
+      <ul>
+        <li><a href="tel:#">📞 Campus Helpline</a></li>
+        <li><a href="mailto:info@ksa-uop.org">✉️ info@ksa-uop.org</a></li>
+        <li><a href="contact.html">📍 Peshawar University, KP</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Khattak Students Association (KSA). All rights reserved.</p>
+    <p>Designed for Academic Welfare</p>
+  </div>
+</footer>
+
+<!-- INTERACTIVE ENGINE SCRIPTS -->
+<script>
+  // Mobile Hamburger Navigation Bar Toggle Action
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => { 
+    hamburger.classList.toggle('open'); 
+    navLinks.classList.toggle('open'); 
+  });
+
+  // Accordion Controller Logic with Auto-Close Mechanism
+  function toggleFAQ(btn) {
+    const targetItem = btn.parentElement;
+    const isCurrentlyOpen = targetItem.classList.contains('open');
+    
+    // Smoothly collapse all open items within the section
+    document.querySelectorAll('.faq-item.open').forEach(item => {
+      item.classList.remove('open');
+    });
+    
+    // Toggle state for selected element
+    if (!isCurrentlyOpen) {
+      targetItem.classList.add('open');
+    }
+  }
+
+  // Live Input Filter/Search Engine for Questions
+  function searchFAQ() {
+    const searchQuery = document.getElementById('faqSearch').value.toLowerCase();
+    
+    document.querySelectorAll('.faq-item').forEach(item => {
+      const textBlock = item.textContent.toLowerCase();
+      item.style.display = textBlock.includes(searchQuery) ? '' : 'none';
+    });
+    
+    document.querySelectorAll('.faq-category').forEach(category => {
+      const dynamicItems = [...category.querySelectorAll('.faq-item')];
+      const hasVisibleMatch = dynamicItems.some(item => item.style.display !== 'none');
+      category.style.display = hasVisibleMatch ? '' : 'none';
+    });
+  }
+
+  // Scroll Animations Controller Engine via Intersection Observer API
+  const observerOptions = { threshold: 0.08, rootMargin: "0px 0px -15px 0px" };
+  const observer = new IntersectionObserver((entries) => { 
+    entries.forEach(entry => { 
+      if (entry.isIntersecting) { 
+        entry.target.classList.add('visible'); 
+        observer.unobserve(entry.target); 
+      } 
+    }); 
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+</script>
+</body>
+</html>

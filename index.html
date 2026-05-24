@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome — Khattak Students Association (KSA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { 
+    --navy: #0A2540; 
+    --navy-light: #1E3A5F; 
+    --gold: #D4AF37; 
+    --emerald: #0F5132;
+    --text: #2D3748; 
+    --white: #ffffff; 
+  }
+  
+  body, html { 
+    height: 100%; 
+    font-family: 'Nunito', sans-serif; 
+    overflow: hidden;
+    background-color: var(--navy);
+  }
+
+  /* CINEMATIC BACKGROUND COMPONENT */
+  .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Replace 'university.jpg' with your custom background image file path anytime */
+    background: linear-gradient(rgba(10, 37, 64, 0.75), rgba(10, 37, 64, 0.9)), url('university.jpg') center/cover no-repeat;
+    z-index: 1;
+    transform: scale(1.05);
+    animation: zoomOutEffect 15s ease-out forwards;
+  }
+
+  /* MAIN GATEWAY CONTENT HOLDER */
+  .welcome-container {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 8%;
+    text-align: center;
+    color: var(--white);
+  }
+
+  /* VISUAL ANIMATIONS ENGINE */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes zoomOutEffect {
+    from { transform: scale(1.1); }
+    to { transform: scale(1); }
+  }
+
+  .animate-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(2.2rem, 6vw, 4.2rem);
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.2s;
+  }
+  .animate-title span { color: var(--gold); }
+
+  .animate-subtitle {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    margin-bottom: 25px;
+    letter-spacing: 4px;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.5s;
+  }
+
+  .animate-text {
+    max-width: 700px;
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.8s;
+  }
+
+  .button-group {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 1.1s;
+  }
+
+  /* PREMIUM BUTTONS STYLING */
+  .btn {
+    text-decoration: none;
+    padding: 15px 35px;
+    font-size: 1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    border: none;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  }
+  .btn-primary:hover {
+    background: #fff;
+    color: var(--navy);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 2px solid var(--white);
+  }
+  .btn-secondary:hover {
+    background: var(--white);
+    color: var(--navy);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+  }
+
+  /* REGISTRATION OVERLAY FORM DISPLAY MODAL */
+  .form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 37, 64, 0.95);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  .form-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-container {
+    background: var(--white);
+    width: 100%;
+    max-width: 650px;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    transform: scale(0.9);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .form-overlay.active .modal-container {
+    transform: scale(1);
+  }
+
+  .modal-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .modal-header h2 {
+    font-family: 'Cinzel', serif;
+    color: var(--navy);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .modal-header p {
+    color: #718096;
+    font-size: 0.95rem;
+  }
+
+  .close-modal-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #EDF2F7;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .close-modal-btn:hover { background: #E2E8F0; transform: rotate(90deg); }
+
+  /* FORM INPUT INTERFACES */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 580px) {
+    .form-grid { grid-template-columns: 1fr; gap: 15px; }
+    .button-group { flex-direction: column; width: 100%; }
+    .btn { width: 100%; text-align: center; }
+    .modal-container { padding: 25px 15px; }
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-group.full-width {
+    grid-column: span 2;
+  }
+  @media (max-width: 580px) {
+    .form-group.full-width { grid-column: span 1; }
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .form-group input, .form-group select, .form-group textarea {
+    padding: 12px 16px;
+    border: 2px solid #E2E8F0;
+    border-radius: 6px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.98rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    background: #F8F9FA;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--gold);
+    background: #fff;
+  }
+
+  .btn-submit {
+    background: var(--navy);
+    color: var(--white);
+    width: 100%;
+    padding: 15px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border: none;
+    margin-top: 25px;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover {
+    background: var(--emerald);
+    box-shadow: 0 6px 15px rgba(15, 81, 50, 0.3);
+  }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND FRAME -->
+<div class="hero-background"></div>
+
+<!-- MAIN ENTRY INTERFACE -->
+<main class="welcome-container">
+  <h1 class="animate-title">Welcome to <span>KSA</span></h1>
+  <h2 class="animate-subtitle">Unity • Welfare • Excellence</h2>
+  <p class="animate-text">
+    The Khattak Students Association (KSA) of the University of Peshawar is a dedicated student body focusing on supporting and empowering out-of-district scholars. Through academic study circles, instant emergency blood drives, and organized welfare assistance systems, we stand unified to elevate our student community and pave secure paths toward academic success.
+  </p>
+  
+  <div class="button-group">
+    <!-- Main Redirection Button -->
+    <a href="dashboard.html" class="btn btn-primary">Enter Dashboard</a>
+    <!-- Modal Registration Action Button -->
+    <button class="btn btn-secondary" onclick="toggleRegistrationModal(true)">Join / Register Now</button>
+  </div>
+</main>
+
+<!-- REGISTRATION POPUP MODAL ARCHITECTURE -->
+<div class="form-overlay" id="registrationModal">
+  <div class="modal-container">
+    <button class="close-modal-btn" onclick="toggleRegistrationModal(false)">×</button>
+    
+    <div class="modal-header">
+      <h2>Student Registration Form</h2>
+      <p>Fill out your verified academic data to register securely with KSA.</p>
+    </div>
+
+    <!-- LIVE FORMSPREE ENDPOINT INTEGRATED -->
+    <form action="https://formspree.io/f/xredlngr" method="POST">
+      <div class="form-grid">
+        
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="reg-name">Full Name</label>
+          <input type="text" id="reg-name" name="Full Name" placeholder="Your Name" required>
+        </div>
+
+        <!-- Father's Name -->
+        <div class="form-group">
+          <label for="reg-father">Father's Name</label>
+          <input type="text" id="reg-father" name="Father Name" placeholder="Father's Name" required>
+        </div>
+
+        <!-- Department Name -->
+        <div class="form-group">
+          <label for="reg-dept">Department Name</label>
+          <input type="text" id="reg-dept" name="Department" placeholder="e.g., Computer Science" required>
+        </div>
+
+        <!-- Mobile Number -->
+        <div class="form-group">
+          <label for="reg-phone">Mobile Number</label>
+          <input type="tel" id="reg-phone" name="Mobile Number" placeholder="e.g., 0347 1018571" required>
+        </div>
+
+        <!-- Email Address -->
+        <div class="form-group">
+          <label for="reg-email">Email Address</label>
+          <input type="email" id="reg-email" name="Email Address" placeholder="name@domain.com" required>
+        </div>
+
+        <!-- Blood Group Dropdown -->
+        <div class="form-group">
+          <label for="reg-blood">Blood Group</label>
+          <select id="reg-blood" name="Blood Group" required>
+            <option value="" disabled selected>Select Blood Group</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+
+        <!-- Permanent Address -->
+        <div class="form-group full-width">
+          <label for="reg-address">Permanent Address</label>
+          <textarea id="reg-address" name="Permanent Address" rows="3" placeholder="Tehsil & District / Village Info" required></textarea>
+        </div>
+
+      </div>
+
+      <!-- Action Submission Button -->
+      <button type="submit" class="btn-submit">Submit Registration</button>
+    </form>
+  </div>
+</div>
+
+<!-- FUNCTIONAL SCRIPT INTERACTION RUNTIME -->
+<script>
+  function toggleRegistrationModal(shouldOpen) {
+    const modal = document.getElementById('registrationModal');
+    if (shouldOpen) {
+      modal.classList.add('active');
+    } else {
+      modal.classList.remove('active');
+    }
+  }
+
+  // Close overlay form if the user clicks anywhere outside the card canvas box
+  window.onclick = function(event) {
+    const modal = document.getElementById('registrationModal');
+    if (event.target === modal) {
+      modal.classList.remove('active');
+    }
+  }
+</script>
+</body>
+</html>

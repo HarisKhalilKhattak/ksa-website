@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home — Khattak Students Association (KSA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Bebas+Neue&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #1B365D; --navy-dark: #11223C; --accent-blue: #2980B9;
+    --emerald: #27AE60; --light-gray: #F4F6F9; --text: #2C3E50; --white: #fff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--light-gray); color: var(--text); overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%; height: 75px; background: var(--white);
+    position: sticky; top: 0; z-index: 200;
+    box-shadow: 0 2px 16px rgba(0,0,0,.08);
+  }
+  .logo { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 1.25rem; color: var(--navy); text-decoration: none; }
+  
+  /* Updated Logo Styles for perfect round shape */
+  .logo img { 
+    width: 46px; 
+    height: 46px; 
+    object-fit: cover; 
+    border-radius: 50%; 
+    border: 2px solid var(--navy);
+    background-color: var(--light-gray);
+  }
+  
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    text-decoration: none; color: var(--text); font-weight: 700; font-size: .95rem;
+    position: relative; transition: color .25s; padding: 4px 0;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0;
+    width: 0; height: 2px; background: var(--accent-blue); transition: width .3s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--accent-blue); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-cta { background: var(--emerald); color: var(--white) !important; padding: 10px 24px !important; border-radius: 50px; transition: background .3s !important; box-shadow: 0 4px 12px rgba(39,174,96,.2); }
+  .nav-cta:hover { background: #219653 !important; }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 3px; background: var(--text); border-radius: 2px; transition: all .3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* HERO */
+  .hero {
+    display: grid; grid-template-columns: 1.1fr 0.9fr;
+    align-items: center; min-height: calc(100vh - 75px);
+    padding: 60px 5%; background: linear-gradient(135deg, #f8fafd 0%, #eef3f9 100%); position: relative; overflow: hidden;
+  }
+  .blob { position: absolute; border-radius: 50%; z-index: 0; }
+  .blob-1 { width: 400px; height: 200px; background: rgba(41, 128, 185, 0.1); bottom: 40px; left: -60px; border-radius: 80px 80px 120px 120px / 80px 80px 120px 120px; animation: blobPulse 6s ease-in-out infinite; }
+  .blob-2 { width: 300px; height: 300px; background: rgba(27, 54, 93, 0.05); top: -30px; right: 5%; border-radius: 50%; animation: blobPulse 8s ease-in-out infinite reverse; }
+  @keyframes blobPulse { 0%,100% { transform: scale(1) translate(0, 0); } 50% { transform: scale(1.08) translate(10px, -10px); } }
+  
+  .hero-text { position: relative; z-index: 5; animation: fadeSlideUp .8s ease both; }
+  @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-text h1 { line-height: 1.1; margin-bottom: 16px; }
+  .hero-text h1 .script { font-family: 'Nunito', sans-serif; font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--accent-blue); display: block; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
+  .hero-text h1 .block { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.2rem, 6.5vw, 5.2rem); color: var(--navy); display: block; letter-spacing: 1px; line-height: 1; }
+  .tagline { font-size: 1.25rem; font-weight: 700; color: #4A5568; margin-bottom: 16px; }
+  .desc { font-size: 1rem; color: #718096; line-height: 1.7; max-width: 520px; margin-bottom: 36px; }
+  .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn { padding: 14px 32px; border-radius: 50px; font-family: 'Nunito', sans-serif; font-size: .95rem; font-weight: 700; cursor: pointer; border: 2px solid transparent; transition: all .28s; text-decoration: none; display: inline-block; text-align: center; }
+  .btn-primary { background: var(--navy); color: var(--white); border-color: var(--navy); }
+  .btn-primary:hover { background: var(--navy-dark); border-color: var(--navy-dark); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(27,54,93,.3); }
+  .btn-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+  .btn-outline:hover { background: var(--navy); color: var(--white); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(27,54,93,.15); }
+  
+  .hero-image { position: relative; z-index: 5; display: flex; justify-content: center; align-items: center; animation: fadeSlideUp .8s ease .2s both; }
+  .uni-img { width: min(520px, 100%); height: 380px; filter: drop-shadow(0 20px 30px rgba(0,0,0,.15)); animation: floatImg 4s ease-in-out infinite; border-radius: 24px; object-fit: cover; border: 4px solid var(--white); }
+  @keyframes floatImg { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+  /* STATS BANNER */
+  .stats-banner { background: var(--navy); padding: 40px 5%; color: var(--white); }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; text-align: center; }
+  .stats-card { padding: 10px; }
+  .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--emerald); letter-spacing: 1px; display: block; margin-bottom: 5px; }
+  .stat-label { font-size: 1rem; font-weight: 700; color: #E2E8F0; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* CORE SERVICES */
+  .services { padding: 90px 5%; text-align: center; background: var(--white); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--navy); letter-spacing: 1px; margin-bottom: 10px; }
+  .section-sub { color: #718096; font-size: 1.05rem; max-width: 600px; margin: 0 auto 55px; line-height: 1.6; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 32px; max-width: 1200px; margin: 0 auto; }
+  .service-card { background: var(--light-gray); border-radius: 20px; padding: 45px 30px; box-shadow: 0 4px 20px rgba(0,0,0,.03); transition: transform .3s, box-shadow .3s, border-top .3s; border-top: 4px solid transparent; text-align: left; }
+  .service-card:hover { transform: translateY(-8px); box-shadow: 0 12px 32px rgba(27,54,93,.1); border-top-color: var(--accent-blue); }
+  .service-icon { font-size: 3rem; margin-bottom: 20px; display: block; animation: iconBounce 2.5s ease-in-out infinite; }
+  .service-card:nth-child(2) .service-icon { animation-delay: .3s; }
+  .service-card:nth-child(3) .service-icon { animation-delay: .6s; }
+  @keyframes iconBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .service-card h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 12px; color: var(--navy); }
+  .service-card p { font-size: .95rem; color: #64748B; line-height: 1.7; }
+
+  /* REVIEWS / TESTIMONIALS */
+  .testimonials { padding: 90px 5%; background: var(--light-gray); text-align: center; }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 48px auto 0; }
+  .testi-card { background: var(--white); border-radius: 20px; padding: 35px; box-shadow: 0 4px 20px rgba(0,0,0,.04); text-align: left; transition: transform .3s; position: relative; }
+  .testi-card:hover { transform: translateY(-6px); }
+  .quote-icon { position: absolute; top: 25px; right: 35px; font-size: 3rem; color: rgba(41, 128, 185, 0.1); font-family: serif; line-height: 1; }
+  .stars { color: #F5A623; font-size: 1.1rem; margin-bottom: 16px; }
+  .testi-text { font-size: .98rem; color: #4A5568; line-height: 1.7; margin-bottom: 24px; font-style: italic; position: relative; z-index: 2; }
+  .testi-author { display: flex; align-items: center; gap: 14px; }
+  .testi-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--navy); display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 1rem; object-fit: cover; }
+  .testi-name { font-weight: 800; font-size: 1rem; color: var(--navy); }
+  .testi-role { font-size: .82rem; color: #8A99AD; margin-top: 2px; }
+
+  /* CTA */
+  .cta { padding: 90px 5%; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); text-align: center; position: relative; overflow: hidden; }
+  .cta::before { content: ''; position: absolute; width: 400px; height: 400px; background: rgba(255,255,255,.04); border-radius: 50%; top: -120px; left: -100px; }
+  .cta::after { content: ''; position: absolute; width: 300px; height: 300px; background: rgba(255,255,255,.02); border-radius: 50%; bottom: -80px; right: -80px; }
+  .cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4rem); color: var(--white); letter-spacing: 1px; margin-bottom: 16px; position: relative; z-index: 1; }
+  .cta p { color: #E2E8F0; max-width: 550px; margin: 0 auto 36px; font-size: 1.05rem; line-height: 1.7; position: relative; z-index: 1; }
+  
+  /* Added specific hover interaction for the white CTA button */
+  .btn-white { background: var(--white); color: var(--navy); border-color: var(--white); font-weight: 700; position: relative; z-index: 1; }
+  .btn-white:hover { background: var(--light-gray); transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 28px rgba(0,0,0,0.25); color: var(--accent-blue); }
+
+  /* FOOTER */
+  footer { background: #0F172A; color: #94A3B8; padding: 70px 5% 40px; }
+  .footer-top { display: grid; grid-template-columns: 2fr 1fr 1.2fr 1fr; gap: 40px; margin-bottom: 50px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .footer-brand .logo { color: var(--white); font-size: 1.4rem; display: flex; margin-bottom: 16px; }
+  .footer-brand p { font-size: .92rem; line-height: 1.7; color: #64748B; max-width: 320px; }
+  .footer-col h4 { color: var(--white); font-size: .95rem; margin-bottom: 20px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a { color: #94A3B8; text-decoration: none; font-size: .92rem; transition: color .25s; }
+  .footer-col ul li a:hover { color: var(--accent-blue); }
+  .footer-bottom { border-top: 1px solid #1E293B; padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; max-width: 1200px; margin-left: auto; margin-right: auto; }
+  .footer-bottom p { font-size: .88rem; }
+  
+  /* SOCIAL LINKS AND BRAND-SPECIFIC HOVER STATES */
+  .social-links { display: flex; gap: 12px; }
+  .social-links a { 
+    width: 38px; 
+    height: 38px; 
+    border-radius: 50%; 
+    background: #1E293B; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #94A3B8; 
+    text-decoration: none; 
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; 
+  }
+  .social-links svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+  
+  /* Dynamic App Hover Colors */
+  .social-links a.fb-link:hover { 
+    background: #1877F2; 
+    color: #fff; 
+    transform: translateY(-4px); 
+    box-shadow: 0 6px 15px rgba(24, 119, 242, 0.4); 
+  }
+  .social-links a.tiktok-link:hover { 
+    background: #000000; 
+    color: #fff; 
+    transform: translateY(-4px); 
+    box-shadow: 0 6px 15px rgba(0, 242, 234, 0.3), 0 -6px 15px rgba(254, 44, 85, 0.3); 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .social-links a.insta-link:hover { 
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); 
+    color: #fff; 
+    transform: translateY(-4px); 
+    box-shadow: 0 6px 15px rgba(220, 39, 67, 0.4); 
+  }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) { .footer-top { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; text-align: center; padding: 60px 5%; gap: 40px; }
+    .hero-text { order: 1; } .hero-image { order: 0; }
+    .desc { margin: 0 auto 32px; } .btn-group { justify-content: center; }
+  }
+  @media (max-width: 640px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 75px; left: 0; right: 0; background: var(--white); padding: 24px 5%; gap: 20px; box-shadow: 0 8px 20px rgba(0,0,0,.08); }
+    .nav-links.open { display: flex; }
+    .hamburger { display: flex; }
+    .footer-top { grid-template-columns: 1fr; gap: 30px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="dashboard.html" class="logo">
+    <img src="ksa.jpeg" alt="KSA Logo"> 
+    <span>KSA - University of Peshawar</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html" class="active">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="donation.html">Donations</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Urgent Help</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="hero-text">
+    <h1>
+      <span class="script">Khattak Students Association</span>
+      <span class="block">Serving with Unity</span>
+    </h1>
+    <p class="tagline">Supporting with Pride — University of Peshawar</p>
+    <p class="desc">A dedicated welfare platform built by students from Karak. We actively facilitate our fellow campus peers through timely academic counseling, study circles, blood drives, and reliable hostel guidance.</p>
+    <div class="btn-group">
+      <a href="contact.html" class="btn btn-primary">Get Urgent Help</a>
+      <a href="donation.html" class="btn btn-outline">Support Our Cause</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img class="uni-img" src="111.jpeg" alt="Khattak Students Association">
+  </div>
+</section>
+
+<div class="stats-banner">
+  <div class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-number">500+</span>
+      <span class="stat-label">Students Helped</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">120+</span>
+      <span class="stat-label">Blood Donations</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">50+</span>
+      <span class="stat-label">Study Circles</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-number">24/7</span>
+      <span class="stat-label">Hostel Support</span>
+    </div>
+  </div>
+</div>
+
+<section class="services" id="services">
+  <h2 class="section-title reveal">Our Core Pillars</h2>
+  <p class="section-sub reveal">Empowering and facilitating the Khattak student community throughout their academic journey at UOP.</p>
+  
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-icon">📚</span>
+      <h3>Academic Circles</h3>
+      <p>Structured group discussions, study circles, and insightful counseling led by senior students to simplify tough courses and boost grades.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🩸</span>
+      <h3>Emergency Blood Drives</h3>
+      <p>Instant coordination and round-the-clock backup assistance to provide emergency blood donation whenever medical needs arise across Peshawar.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-icon">🏢</span>
+      <h3>Hostel & Accommodation</h3>
+      <p>Complete step-by-step guidance, merit list insights, room allocation counseling, and settling support for new freshmen arriving from Karak.</p>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials">
+  <h2 class="section-title reveal">What Our Students Say</h2>
+  <p class="section-sub reveal">Real experiences shared by members who found guidance and family away from home.</p>
+  
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="quote-icon">“</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"When I got admitted to UOP, finding a hostel spot felt impossible. The KSA team walked me through every single step, arranged temporary stay, and helped me get settled seamlessly."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">IK</div>
+        <div>
+          <div class="testi-name">Irfan Khattak</div>
+          <div class="testi-role">BS Computer Science Student</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="quote-icon">“</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"During a severe family medical emergency at Khyber Teaching Hospital, KSA arranged two organic blood donors within 20 minutes. Their unity and immediate response is highly commendable."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AK</div>
+        <div>
+          <div class="testi-name">Asad Khattak</div>
+          <div class="testi-role">Pharm-D Department</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card reveal">
+      <div class="quote-icon">“</div>
+      <div class="stars">★★★★★</div>
+      <p class="testi-text">"The weekly study circles organized by our seniors completely changed my perspective on challenging subjects. It feels like a home away from home with constant academic mentorship."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SK</div>
+        <div>
+          <div class="testi-name">Sana Khattak</div>
+          <div class="testi-role">M.Phil Scholar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <h2 class="reveal">Want to Be a Part of the Change?</h2>
+  <p class="reveal">Whether you need instant guidance, want to enroll in peer mentoring programs, or wish to join our blood donor network, we are always here to support you.</p>
+  <a href="contact.html" class="btn btn-white reveal">Connect with KSA Today</a>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="dashboard.html" class="logo">KSA - UOP</a>
+      <p>Serving the student community with dedication since 2015. Empowering youth from Karak, facilitating academic growth, and fostering unity at the University of Peshawar.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="donation.html">Donations</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Core Activities</h4>
+      <ul>
+        <li><a href="about.html">Blood Camp Coordination</a></li>
+        <li><a href="about.html">Freshers Guidance Seminars</a></li>
+        <li><a href="about.html">Karak Study Circles</a></li>
+        <li><a href="about.html">Annual Student Gatherings</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Info</h4>
+      <ul>
+        <li><a href="tel:+923001234567">📞 +92 300 1234567</a></li>
+        <li><a href="mailto:info@ksauop.org">✉️ info@ksauop.org</a></li>
+        <li><a href="contact.html">📍 KSA Desk, University of Peshawar</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Khattak Students Association (KSA). All rights reserved.</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/1CdcPj6Bx5/" class="fb-link" title="Facebook" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.8c4.56-.93 8-4.96 8-9.8z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@ksa.uop?_r=1&_t=ZS-96coYEYx3vo" class="tiktok-link" title="TikTok" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.03 1.6 4.17 1.12 1.25 2.7 2.06 4.37 2.27v3.86c-1.78-.04-3.5-.63-4.92-1.72-.11-.08-.22-.17-.33-.27v6.62c.01 2.37-1.12 4.67-3.1 5.92-2.18 1.4-5.06 1.46-7.3 0-2.3-1.46-3.51-4.2-3.05-6.88.42-2.48 2.4-4.52 4.9-4.98.54-.1 1.08-.1 1.62 0v3.9c-.93-.24-1.95-.03-2.68.62-.83.71-1.18 1.88-.88 2.92.3 1.05 1.28 1.79 2.38 1.77 1.34.02 2.47-1.03 2.53-2.37.03-1.42 0-2.84.01-4.26V0l.86.02z"/></svg>
+      </a>
+      <a href="https://instagram.com/your-profile" class="insta-link" title="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { 
+        e.target.classList.add('visible'); 
+        observer.unobserve(e.target); 
+      }
+    });
+  }, { threshold: 0.1 });
+
+  revealEls.forEach((el, i) => {
+    el.style.transitionDelay = (i % 3 * 0.08) + 's';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support Our Cause — Khattak Students Association (KSA)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { 
+    --navy: #0A2540; 
+    --navy-light: #1E3A5F; 
+    --gold: #D4AF37; 
+    --gold-light: #F4E8C1; 
+    --emerald: #0F5132;
+    --crimson: #A30000;
+    --gray-bg: #F8F9FA; 
+    --text: #2D3748; 
+    --white: #ffffff; 
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Nunito', sans-serif; background: var(--gray-bg); color: var(--text); overflow-x: hidden; }
+
+  /* NAVIGATION BAR */
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 5%; height: 72px; background: var(--navy); position: sticky; top: 0; z-index: 200; box-shadow: 0 4px 20px rgba(0,0,0,.15); }
+  .logo-container { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-text { font-family: 'Cinzel', serif; font-size: 1.15rem; color: var(--white); font-weight: 700; letter-spacing: 1px; }
+  .logo-text span { color: var(--gold); }
+  .nav-links { display: flex; gap: 1.8rem; list-style: none; align-items: center; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,.85); font-weight: 700; font-size: .95rem; position: relative; transition: color .25s; padding: 6px 0; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: var(--gold); transition: width .3s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-cta { background: var(--emerald); color: var(--white) !important; padding: 10px 24px !important; border-radius: 6px; box-shadow: 0 4px 12px rgba(15,81,50,.3); transition: transform .2s !important; }
+  .nav-cta:hover { transform: translateY(-2px); background: #146c43; }
+  .nav-cta::after { display: none !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+  .hamburger span { display: block; width: 24px; height: 3px; background: var(--white); border-radius: 2px; transition: all .3s; }
+  .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* BREADCRUMB HERO */
+  .page-hero { background: linear-gradient(rgba(10,37,64,.85), rgba(10,37,64,.95)), url('university.jpg') center/cover no-repeat; padding: 90px 5%; text-align: center; position: relative; }
+  .page-hero h1 { font-family: 'Cinzel', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); color: var(--white); letter-spacing: 1px; }
+  .page-hero p { color: var(--gold); font-size: 1.1rem; margin-top: 10px; font-weight: 600; }
+  .breadcrumb { display: flex; justify-content: center; gap: 8px; margin-top: 20px; }
+  .breadcrumb a { color: rgba(255,255,255,.7); text-decoration: none; font-size: .9rem; font-weight: 600; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: rgba(255,255,255,.4); font-size: .9rem; }
+
+  /* OVERVIEW SECTION */
+  .donation-intro { padding: 90px 5%; background: var(--white); }
+  .intro-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: center; }
+  .intro-text .section-tag { color: var(--emerald); font-weight: 800; font-size: .9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+  .intro-text h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.6rem); color: var(--navy); margin-bottom: 15px; }
+  .accent-line { width: 70px; height: 4px; background: var(--gold); border-radius: 2px; margin-bottom: 25px; }
+  .intro-text p { font-size: 1.05rem; color: #4A5568; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+  
+  /* IMPACT CALLOUT BOX */
+  .impact-box { background: rgba(15,81,50,0.05); border-left: 4px solid var(--emerald); padding: 25px; border-radius: 4px; margin-top: 30px; }
+  .impact-box h4 { font-family: 'Cinzel', serif; color: var(--emerald); margin-bottom: 8px; font-size: 1.1rem; }
+  .impact-box p { font-size: .95rem; margin-bottom: 0; color: #2D3748; }
+
+  /* FUNDING SECTORS GRID */
+  .sectors { padding: 90px 5%; background: var(--gray-bg); }
+  .center-heading { text-align: center; max-width: 750px; margin: 0 auto 60px; }
+  .center-heading h2 { font-family: 'Cinzel', serif; font-size: clamp(2rem, 4vw, 2.5rem); color: var(--navy); margin-bottom: 12px; }
+  .center-heading p { color: #718096; font-size: 1.05rem; }
+  .sectors-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+  .sector-card { background: var(--white); border-radius: 12px; padding: 40px 30px; box-shadow: 0 10px 30px rgba(0,0,0,.03); border: 1px solid rgba(0,0,0,.04); transition: transform .3s; }
+  .sector-card:hover { transform: translateY(-5px); }
+  .sector-badge { display: inline-block; padding: 6px 14px; font-size: .8rem; font-weight: 800; text-transform: uppercase; border-radius: 4px; margin-bottom: 20px; letter-spacing: 1px; }
+  .badge-academic { background: rgba(30,58,138,0.1); color: var(--navy); }
+  .badge-medical { background: rgba(163,0,0,0.1); color: var(--crimson); }
+  .badge-welfare { background: rgba(15,81,50,0.1); color: var(--emerald); }
+  .sector-card h3 { font-family: 'Cinzel', serif; font-size: 1.35rem; color: var(--navy); margin-bottom: 15px; }
+  .sector-card p { font-size: .98rem; color: #4A5568; line-height: 1.7; margin-bottom: 20px; }
+  .sector-list { list-style: none; }
+  .sector-list li { font-size: .92rem; color: #718096; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
+  .sector-list li::before { content: '✓'; color: var(--gold); font-weight: 900; }
+
+  /* PAYMENT GATEWAYS SECTION */
+  .payment-channels { padding: 90px 5%; background: var(--white); }
+  .channels-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+  
+  /* PREMIUM BANKING CARDS STYLING */
+  .channel-card { border-radius: 16px; padding: 35px; color: var(--white); position: relative; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,.12); display: flex; flex-direction: column; justify-content: space-between; min-height: 250px; transition: transform .3s, box-shadow .3s; }
+  .channel-card:hover { transform: translateY(-8px); box-shadow: 0 20px 45px rgba(0,0,0,.18); }
+  
+  .card-nayapay { background: linear-gradient(135deg, #00A6CA, #0A4363); }
+  .card-jazzcash { background: linear-gradient(135deg, #FFB703, #D48200); color: #111; }
+  .card-bank { background: linear-gradient(135deg, #1E4620, #0E2410); border: 1px solid rgba(212,175,55,0.3); }
+  
+  /* Card Inner Structures */
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; }
+  .provider-name { font-family: 'Cinzel', serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 1px; }
+  .card-type-badge { font-size: .75rem; font-weight: 800; background: rgba(255,255,255,.2); padding: 4px 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+  .card-jazzcash .card-type-badge { background: rgba(0,0,0,.1); }
+  
+  .card-mid { margin-bottom: 25px; }
+  .account-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .account-number { font-family: monospace; font-size: 1.4rem; letter-spacing: 1.5px; font-weight: 600; text-shadow: 1px 1px 2px rgba(0,0,0,.2); }
+  .iban-text { font-family: monospace; font-size: 0.88rem; letter-spacing: 0.5px; opacity: 0.9; }
+  
+  /* PREMIUM COPY BUTTON DESIGN */
+  .btn-copy { background: rgba(255,255,255,0.2); border: none; color: inherit; padding: 4px 10px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.2s ease; font-family: 'Nunito', sans-serif; text-transform: uppercase; }
+  .btn-copy:hover { background: rgba(255,255,255,0.35); transform: scale(1.04); }
+  .card-jazzcash .btn-copy { background: rgba(0,0,0,0.08); }
+  .card-jazzcash .btn-copy:hover { background: rgba(0,0,0,0.15); }
+  
+  .card-bottom { display: flex; justify-content: space-between; align-items: flex-end; }
+  .info-block label { font-size: .72rem; text-transform: uppercase; opacity: .7; display: block; margin-bottom: 2px; font-weight: 700; }
+  .info-block .val { font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; }
+
+  /* TRANSPARENCY NOTICE BLOCK */
+  .transparency-bar { max-width: 1200px; margin: 60px auto 0; background: #FFFDF5; border: 1px solid #F4E8C1; border-radius: 8px; padding: 30px; display: flex; gap: 20px; align-items: center; }
+  .transparency-icon { font-size: 2.5rem; }
+  .transparency-text h4 { font-family: 'Cinzel', serif; color: var(--navy); margin-bottom: 4px; }
+  .transparency-text p { font-size: .95rem; color: #556870; line-height: 1.6; }
+
+  /* SCROLL REVEAL ANIMATION */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity .7s cubic-bezier(0.215, 0.610, 0.355, 1), transform .7s cubic-bezier(0.215, 0.610, 0.355, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* FOOTER */
+  footer { background: var(--navy); color: rgba(255,255,255,.75); padding: 70px 5% 30px; border-top: 5px solid var(--gold); }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 50px; max-width: 1200px; margin: 0 auto 50px; }
+  .footer-brand .logo-text { font-size: 1.4rem; margin-bottom: 15px; display: inline-block; }
+  .footer-brand p { font-size: .92rem; line-height: 1.75; max-width: 320px; color: rgba(255,255,255,.65); }
+  .footer-col h4 { color: var(--white); font-family: 'Cinzel', serif; font-size: 1rem; margin-bottom: 22px; letter-spacing: 1px; position: relative; padding-bottom: 8px; }
+  .footer-col h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 35px; height: 2px; background: var(--gold); }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a { color: rgba(255,255,255,.65); text-decoration: none; font-size: .92rem; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--gold); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 25px; max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+  .footer-bottom p { font-size: .88rem; color: rgba(255,255,255,.5); }
+
+  /* RESPONSIVE DESIGN BREAKPOINTS */
+  @media (max-width: 960px) { .intro-grid { grid-template-columns: 1fr; gap: 40px; } .transparency-bar { flex-direction: column; text-align: center; } .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
+  @media (max-width: 680px) {
+    .nav-links { display: none; flex-direction: column; position: absolute; top: 72px; left: 0; right: 0; background: var(--navy); padding: 30px 5%; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,.15); border-top: 1px solid rgba(255,255,255,.05); }
+    .nav-links.open { display: flex; } .hamburger { display: flex; }
+    .footer-top { grid-template-columns: 1fr; gap: 35px; } .footer-bottom { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="dashboard.html" class="logo-container">
+    <span class="logo-text">KSA — <span>UOP</span></span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="dashboard.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="donation.html" class="active">Donations</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Get Urgent Help</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <h1 class="reveal">Support Deserving Students</h1>
+  <p class="reveal">Your contributions unlock academic opportunities and save lives</p>
+  <div class="breadcrumb reveal">
+    <a href="dashboard.html">Home</a>
+    <span>/</span>
+    <span style="color: var(--gold);">Donation Desk</span>
+  </div>
+</div>
+
+<section class="donation-intro">
+  <div class="intro-grid">
+    <div class="intro-text reveal">
+      <span class="section-tag">Financial Welfare Desk</span>
+      <h2>Empower via Education & Relief</h2>
+      <div class="accent-line"></div>
+      <p>Every year, numerous talented and highly motivated students from Karak secure admissions across competitive departments at the University of Peshawar. However, some encounter sudden financial hardships that threaten their academic continuity. The Khattak Students Association (KSA) acts as a reliable safety net, ensures tuition coverage, and coordinates crucial sustenance resources.</p>
+      <p>By channelizing contributions into audited welfare brackets, KSA maintains a constant emergency pool. This fund is exclusively utilized to assist non-boarding hostel arrangements, procure curriculum material, or settle semester fee tallies for verified applicants facing severe monetary distress.</p>
+      
+      <div class="impact-box">
+        <h4>Did You Know?</h4>
+        <p>100% of all receiving donations directly reach candidate tallies. Administrative overhead operations are fully managed internally by executive council pool collections.</p>
+      </div>
+    </div>
+    <div class="intro-text reveal" style="background: var(--gray-bg); padding: 40px; border-radius: 12px; border: 1px solid rgba(0,0,0,.05);">
+      <h3 style="font-family: 'Cinzel', serif; color: var(--navy); margin-bottom: 15px; font-size: 1.4rem;">Zakat Eligibility</h3>
+      <p style="font-size: .95rem; line-height: 1.7; margin-bottom: 15px;">We maintain fully separate registries for general voluntary contributions and Islamic Zakat funds. Deserving applicants are strictly verified by our welfare panel in absolute compliance with traditional asset guidelines.</p>
+      <p style="font-size: .95rem; line-height: 1.7; font-weight: 700; color: var(--emerald);">✓ Segregated Accounts Management</p>
+      <p style="font-size: .95rem; line-height: 1.7; font-weight: 700; color: var(--emerald);">✓ Direct Student Disbursal System</p>
+    </div>
+  </div>
+</section>
+
+<section class="sectors">
+  <div class="center-heading reveal">
+    <h2>Where Your Support Goes</h2>
+    <p>We divide our mobilization resources into three highly structured departments to maximize ground-level efficiency.</p>
+  </div>
+  <div class="sectors-grid">
+    <div class="sector-card reveal">
+      <span class="sector-badge badge-academic">Academic Funds</span>
+      <h3>Semester Fee Assistance</h3>
+      <p>Covers semester registration tallies, library membership requirements, and specialized degree resources for top-performing students experiencing financial setbacks.</p>
+      <ul class="sector-list">
+        <li>Direct University Account Deposits</li>
+        <li>Curriculum Textbook Distribution</li>
+      </ul>
+    </div>
+    <div class="sector-card reveal">
+      <span class="sector-badge badge-medical">Emergency Medical</span>
+      <h3>Blood Drives & Healthcare</h3>
+      <p>Funds logistics for blood grouping drives, diagnostic emergencies at local teaching hospitals, and provides urgent medicine grants for students during illness.</p>
+      <ul class="sector-list">
+        <li>24/7 Patient Logistics Care</li>
+        <li>Therapeutic Medicine Procurement</li>
+      </ul>
+    </div>
+    <div class="sector-card reveal">
+      <span class="sector-badge badge-welfare">Hostel Welfare</span>
+      <h3>Sustenance & Boarding</h3>
+      <p>Supports out-of-district scholars adjusting to campus hostels with meal subsidies, utility adjustments, and critical winter bedding arrangements.</p>
+      <ul class="sector-list">
+        <li>Mess Bill Subsidies</li>
+        <li>Room Utility Adjustments</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="payment-channels">
+  <div class="center-heading reveal">
+    <h2>Official Payment Gateways</h2>
+    <p>Transfer contributions directly using any of our verified mobile wallet channels or institutional banking setups detailed below.</p>
+  </div>
+  
+  <div class="channels-grid">
+    <div class="channel-card card-nayapay reveal">
+      <div class="card-top">
+        <span class="provider-name">nayapay</span>
+        <span class="card-type-badge">Mobile Wallet</span>
+      </div>
+      <div class="card-mid">
+        <div class="account-row">
+          <div class="account-number" id="num-nayapay">0347 1018571</div>
+          <button class="btn-copy" onclick="copyText('num-nayapay', this)">Copy</button>
+        </div>
+        <div class="iban-text">KSA Emergency Desk Pool</div>
+      </div>
+      <div class="card-bottom">
+        <div class="info-block">
+          <label>Account Title</label>
+          <div class="val">Adnan Nasim</div>
+        </div>
+        <div class="info-block" style="text-align: right;">
+          <label>Status</label>
+          <div class="val">Active</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card card-jazzcash reveal">
+      <div class="card-top">
+        <span class="provider-name">JazzCash</span>
+        <span class="card-type-badge">Mobile Wallet</span>
+      </div>
+      <div class="card-mid">
+        <div class="account-row">
+          <div class="account-number" id="num-jazzcash">0347 1018571</div>
+          <button class="btn-copy" onclick="copyText('num-jazzcash', this)">Copy</button>
+        </div>
+        <div class="iban-text">KSA Core Welfare Fund</div>
+      </div>
+      <div class="card-bottom">
+        <div class="info-block">
+          <label>Account Title</label>
+          <div class="val">Adnan Nasim</div>
+        </div>
+        <div class="info-block" style="text-align: right;">
+          <label>Status</label>
+          <div class="val">Active</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="channel-card card-bank reveal">
+      <div class="card-top">
+        <span class="provider-name" style="color: var(--gold);">Meezan Bank</span>
+        <span class="card-type-badge">Islamic Banking</span>
+      </div>
+      <div class="card-mid">
+        <div class="account-row">
+          <div class="account-number" style="font-size: 1.25rem;" id="num-bank">0030 0112440295</div>
+          <button class="btn-copy" onclick="copyText('num-bank', this)">Copy</button>
+        </div>
+        <div class="account-row" style="margin-top: 4px;">
+          <div class="iban-text" id="num-iban">PK26 MEZN 0000 3001 1244 0295</div>
+          <button class="btn-copy" style="padding: 2px 6px; font-size: 0.65rem;" onclick="copyText('num-iban', this)">Copy IBAN</button>
+        </div>
+      </div>
+      <div class="card-bottom">
+        <div class="info-block">
+          <label>Account Title</label>
+          <div class="val" style="font-size: 0.9rem;">Khattak Students Association</div>
+        </div>
+        <div class="info-block" style="text-align: right;">
+          <label>Branch</label>
+          <div class="val">UOP Desk</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="transparency-bar reveal">
+    <div class="transparency-icon">🛡️</div>
+    <div class="transparency-text">
+      <h4>Our Transparency Assurance Policy</h4>
+      <p>Every single transaction is systematically logged, cataloged, and archived. A consolidated financial expenditure ledger sheet is openly presented to our leadership council every academic semester to maintain absolute fiscal clarity.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo-text">KSA — <span>UOP</span></span>
+      <p>Serving with Unity, Supporting with Pride. A student-led welfare organization dedicated to assisting the student community at the University of Peshawar.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="donation.html">Donations</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Services</h4>
+      <ul>
+        <li><a href="contact.html">Blood Drives</a></li>
+        <li><a href="about.html">Study Circles</a></li>
+        <li><a href="contact.html">Hostel Guidance</a></li>
+        <li><a href="donation.html">Financial Aid</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact Desk</h4>
+      <ul>
+        <li><a href="tel:#">📞 Campus Helpline</a></li>
+        <li><a href="mailto:info@ksa-uop.org">✉️ info@ksa-uop.org</a></li>
+        <li><a href="contact.html">📍 Peshawar University, KP</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Khattak Students Association (KSA). All rights reserved.</p>
+    <p>Designed for Academic Welfare</p>
+  </div>
+</footer>
+
+<script>
+  function copyText(elementId, button) {
+    const textToCopy = document.getElementById(elementId).innerText;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        handleCopySuccess(button);
+      });
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      textArea.style.position = "fixed"; 
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        handleCopySuccess(button);
+      } catch (err) {
+        console.error('Failed to copy', err);
+      }
+      document.body.removeChild(textArea);
+    }
+  }
+
+  function handleCopySuccess(button) {
+    const originalText = button.innerText;
+    button.innerText = "Copied!";
+    button.style.background = "#0F5132";
+    button.style.color = "#ffffff";
+    setTimeout(() => {
+      button.innerText = originalText;
+      button.style.background = "";
+      button.style.color = "";
+    }, 1800);
+  }
+
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  hamburger.addEventListener('click', () => { 
+    hamburger.classList.toggle('open'); 
+    navLinks.classList.toggle('open'); 
+  });
+
+  const observerOptions = { threshold: 0.12, rootMargin: "0px 0px -20px 0px" };
+  const observer = new IntersectionObserver((entries) => { 
+    entries.forEach(entry => { 
+      if (entry.isIntersecting) { 
+        entry.target.classList.add('visible'); 
+        observer.unobserve(entry.target); 
+      } 
+    }); 
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+</script>
+</body>
+</html>
